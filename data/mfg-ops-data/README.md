@@ -5,24 +5,60 @@ The **single source of truth** for the workshop data. These 11 CSVs build the
 **Lakehouse** tables (`downtime_reasons`, `sales_orders`) — so there is no separate
 lakehouse dataset to maintain.
 
-> The messy column/file names (`Sheet1.csv`, `sales_data_FINAL.csv`, `Down`, `Qty`, `Mfr`)
-> are **intentional teaching traps** for the Lab 1 modeling/debugging exercises.
+> The messy column/file names (`Sheet1.csv`, `sales_data_FINAL.csv`, `Down`, `Qty`, `Mfr`,
+> `loc`, `DeviceID`) are **intentional teaching traps** for the Lab 1 modeling/debugging
+> exercises.
 
-## Files → semantic model tables
+---
 
-| CSV | Model table | Notes |
-|-----|-------------|-------|
-| `Plants.csv` | Plants | Dimension |
-| `lines.csv` | Lines | Dimension |
-| `Assets.csv` | Assets | Dimension |
-| `PRODUCTS.csv` | Products | Dimension |
-| `Customers_Master.csv` | Customers | Dimension |
-| `vendor list.csv` | Vendors | Dimension |
-| `ProductionLog.csv` | ProductionLog | Fact (production, downtime `Down`) |
-| `sales_data_FINAL.csv` | Sales | Fact (revenue/units) |
-| `Sheet1.csv` | SalesSummary | Pre-aggregated sales summary |
-| `inventory.csv` | Inventory | Fact |
-| `PO_Data.csv` | PurchaseOrders | Fact |
+## What each table contains
+
+### Dimensions
+
+**`Plants.csv`** → **Plants** — Plant master (one row per manufacturing plant).
+`ID`, `Name`, `Region`, `Country`, `City`, `Year` (year opened).
+
+**`lines.csv`** → **Lines** — Production-line master (one row per line).
+`LineID`, `line_name`, `PlantID`, `loc` (floor location), `DeviceID`, `Type`
+(line type: Assembly / Machining / Winding / Calibration / Test), `asset`, `Mfr` (manufacturer).
+*Trap: lines join to other tables by `line_name`, and `DeviceID` is the bridge to Assets.*
+
+**`Assets.csv`** → **Assets** — Equipment/device master (one row per asset).
+`ID`, `Device_Id`, `Name`, `type` (e.g. IndustrialPump), `Mfr`, `PlantID`, `Location`.
+*Trap: `Device_Id` here vs `DeviceID` elsewhere — a deliberate name mismatch.*
+
+**`PRODUCTS.csv`** → **Products** — Product catalog (one row per product).
+`ID`, `Code`, `Name`, `Cat` (category: Pumps, Turbines, Valves, Motors, Sensors, Spare Parts),
+`SubCat`, `Price` (list price), `Cost` (unit cost).
+
+**`Customers_Master.csv`** → **Customers** — Customer master (one row per customer).
+`ID`, `custName`, `segment` (e.g. Utility, Mining), `Region`, `country`.
+
+**`vendor list.csv`** → **Vendors** — Supplier master (one row per vendor).
+`id`, `vendor_name`, `type` (e.g. OEM Components), `country`, `rating`.
+
+### Facts
+
+**`ProductionLog.csv`** → **ProductionLog** — Daily production & downtime, grain = **Date × line × shift**.
+`Date`, `Timestamp`, `Year`, `line_name`, `DeviceID`, `product_name`, `Shift` (Day/Swing/Night),
+`Planned` (planned units), `Qty` (units produced), `Good`, `Scrap`, `Runtime` (minutes),
+`Down` (downtime minutes). *Drives OEE, scrap rate, schedule attainment, downtime.*
+
+**`sales_data_FINAL.csv`** → **Sales** — Sales order lines, grain = **order line**.
+`OrderNo`, `Date`, `Year`, `custName`, `region`, `Prod` (product name), `Cat`, `Qty`,
+`Price`, `Disc` (discount), `Amount` (revenue), `Cost`, `Profit`.
+
+**`Sheet1.csv`** → **SalesSummary** — Pre-aggregated daily sales, grain = **Date × customer**.
+`Date`, `custName`, `Amount`. *A redundant rollup of Sales — a teaching trap for duplicate facts.*
+
+**`inventory.csv`** → **Inventory** — Daily inventory position, grain = **Date × product × plant**.
+`Date`, `Product`, `Plant`, `Qty` (on hand), `Reorder` (reorder point), `InTransit`.
+
+**`PO_Data.csv`** → **PurchaseOrders** — Purchase orders to vendors, grain = **PO line**.
+`PO_Number`, `Date`, `VendorName`, `Plant`, `Qty`, `UnitCost`, `Amount`,
+`PromisedDays`, `ActualDays`, `OnTime` (delivery on time). *Supplier on-time / lead-time analysis.*
+
+---
 
 ## Used by the Lab 3 Lakehouse build
 
@@ -37,4 +73,6 @@ subset of the files above (no extra raw data):
 ## Regenerating / re-anchoring dates
 
 These CSVs are produced by `generate_workshop_data.py` (date self-correcting via the
-`AsOfDate` Power Query parameter). See the semantic-model README for details.
+`AsOfDate` Power Query parameter). The fact tables are generated far into the future and
+trimmed to "as of today" at refresh, so the model never goes stale. See the semantic-model
+README for details.
