@@ -60,6 +60,25 @@ lakehouse dataset to maintain.
 
 ---
 
+## Built-in entity-name collision (disambiguation lab)
+
+The token **"AquaFlow"** is intentionally reused across **four different entity types** so
+the Data Agent must disambiguate which one a question refers to:
+
+| Entity type | Where it lives | Value(s) |
+|-------------|----------------|----------|
+| **Product** (what we *make/sell*) | `PRODUCTS.csv` → Products[Name]; `ProductionLog.csv`[product_name]; `sales_data_FINAL.csv`[Prod] | AquaFlow 100 / 200 / 350 / 500 …Pump |
+| **Customer / company** (who we *sell to*) | `Customers_Master.csv`[custName]; `sales_data_FINAL.csv`[custName] | AquaFlow Industries |
+| **Vendor / supplier** (who we *buy from*) | `vendor list.csv`[vendor_name]; `PO_Data.csv`[VendorName] | AquaFlow Components |
+| **Asset / equipment** (a *device* on the floor) | `Assets.csv`[Name] | AquaFlow Transfer Pump (`pump-aqua-01`) |
+
+Each entity has **real backing rows** (AquaFlow Industries has sales orders; AquaFlow
+Components has purchase orders), so correctly-routed questions return data and
+wrongly-routed ones return none. The lab teaches the agent to pick the entity from the
+question's verb/preposition (*uses/makes* → product, *bought from/supplier* → vendor,
+*sold to/customer* → customer, *machine/equipment/device* → asset) and to **ask for
+clarification** when the phrasing is ambiguous (e.g. "show me AquaFlow").
+
 ## Used by the Lab 3 Lakehouse build
 
 `NB_Build_OpsRefLakehouse` derives both lakehouse tables **deterministically** from a
