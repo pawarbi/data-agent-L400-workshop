@@ -27,6 +27,7 @@ This repository contains the data, semantic models, notebooks, evaluation assets
 
 ### Notebooks
 
+- `NB_Deploy_Workshop_Assets.ipynb` - Deploys the workshop notebooks and both PBIX semantic models to the current or a specified workspace.
 - `NB_DataAgent_SDK_Setup_L400.ipynb`
 - `NB_DataAgentEval_L400.ipynb`
 - `NB_DataAgentEval_L400_AssistantAPI_TemporaryFix.ipynb`
