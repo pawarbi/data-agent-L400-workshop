@@ -4,6 +4,12 @@
 
 This repository contains the data, semantic models, notebooks, evaluation assets, and lab instructions for the Microsoft Fabric Data Agent L400 workshop.
 
+## Deploy the workshop assets
+
+Download [`NB_Deploy_Workshop_Assets.ipynb`](NB_Deploy_Workshop_Assets.ipynb) and execute this notebook in Fabric. The workspace must be attached to a Fabric capacity.
+
+By default, the notebook deploys the workshop notebooks and semantic models to the workspace where it is executed. You can optionally provide another workspace ID.
+
 ## Repository contents
 
 | Folder | Contents |
@@ -27,7 +33,7 @@ This repository contains the data, semantic models, notebooks, evaluation assets
 
 ### Notebooks
 
-- `NB_Deploy_Workshop_Assets.ipynb` - Deploys the workshop notebooks and both PBIX semantic models to the current or a specified workspace.
+- [`NB_Deploy_Workshop_Assets.ipynb`](NB_Deploy_Workshop_Assets.ipynb) - Root deployment notebook for the complete workshop environment.
 - `NB_DataAgent_SDK_Setup_L400.ipynb`
 - `NB_DataAgentEval_L400.ipynb`
 - `NB_DataAgentEval_L400_AssistantAPI_TemporaryFix.ipynb`
