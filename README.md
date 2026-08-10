@@ -10,6 +10,18 @@ Download [`NB_Deploy_Workshop_Assets.ipynb`](NB_Deploy_Workshop_Assets.ipynb) an
 
 By default, the notebook deploys the workshop notebooks and semantic models to the workspace where it is executed. You can optionally provide another workspace ID.
 
+## Prerequisites
+  •	A paid F2 or higher Fabric capacity, or a Power BI Premium per capacity (P1 or higher) capacity with Microsoft Fabric enabled.
+
+  •	Enable cross-geo processing and cross-geo storing for AI based on requirements explained in Fabric data agent tenant settings.
+
+  •	Power BI Pro license
+
+  •	At least a Contributor role in a workspace
+
+  •	Familiarity with Power BI, DAX, Python, SQL
+
+
 ## Repository contents
 
 | Folder | Contents |
