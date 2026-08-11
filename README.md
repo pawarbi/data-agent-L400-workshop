@@ -10,6 +10,8 @@ Download [`NB_Deploy_Workshop_Assets.ipynb`](NB_Deploy_Workshop_Assets.ipynb) an
 
 By default, the notebook deploys the workshop notebooks and semantic models to the workspace where it is executed. You can optionally provide another workspace ID.
 
+The deployment notebook configures the public GitHub Web datasource with Anonymous credentials before optionally refreshing both semantic models. No GitHub credential or token is required.
+
 ## Repository contents
 
 | Folder | Contents |
