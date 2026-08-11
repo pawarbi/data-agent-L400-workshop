@@ -8,7 +8,7 @@ This repository contains the data, semantic models, notebooks, evaluation assets
 
 Download [`NB_Deploy_Workshop_Assets.ipynb`](NB_Deploy_Workshop_Assets.ipynb) and execute this notebook in Fabric. The workspace must be attached to a Fabric capacity.
 
-By default, the notebook deploys the workshop notebooks and semantic models to the workspace where it is executed. You can optionally provide another workspace ID.
+By default, the notebook deploys the workshop notebooks and semantic models to the workspace where it is executed. You can optionally provide another workspace ID. The notebook creates or reuses a root workspace folder named `data_agent_lab` and places all deployed assets in that folder.
 
 The deployment notebook configures the public GitHub Web datasource with Anonymous credentials before optionally refreshing both semantic models. No GitHub credential or token is required.
 
