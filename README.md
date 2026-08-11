@@ -12,6 +12,17 @@ By default, the notebook deploys the workshop notebooks and semantic models to t
 
 The deployment notebook configures the public GitHub Web datasource with Anonymous credentials before optionally refreshing both semantic models. No GitHub credential or token is required.
 
+## Prerequisites
+  •	A paid F2 or higher Fabric capacity, or a Power BI Premium per capacity (P1 or higher) capacity with Microsoft Fabric enabled.
+
+  •	Enable cross-geo processing and cross-geo storing for AI based on requirements explained in Fabric data agent tenant settings.
+
+  •	Power BI Pro license
+
+  •	At least a Contributor role in a workspace
+
+  •	Familiarity with Power BI, DAX, Python, SQL
+
 ## Repository contents
 
 | Folder | Contents |
