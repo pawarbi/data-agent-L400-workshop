@@ -8,9 +8,11 @@ This repository contains the data, semantic models, notebooks, evaluation assets
 
 Download [`NB_Deploy_Workshop_Assets.ipynb`](NB_Deploy_Workshop_Assets.ipynb) and execute this notebook in Fabric. The workspace must be attached to a Fabric capacity.
 
-By default, the notebook deploys the workshop notebooks and semantic models to the workspace where it is executed. You can optionally provide another workspace ID. The notebook creates or reuses a root workspace folder named `data_agent_lab` and places all deployed assets in that folder.
+By default, the notebook deploys the workshop notebooks and semantic models to the workspace where it is executed. You can optionally provide another workspace ID. Set `TARGET_FOLDER_ID` to deploy into an existing root or nested folder; otherwise, the notebook creates or reuses the root folder named `data_agent_lab`.
 
 When semantic-model refresh is enabled, the deployment notebook creates or reuses a shareable Anonymous Web connection for the public GitHub datasource, binds it, and refreshes both models. Connection setup and refresh are disabled by default. No GitHub credential or token is required.
+
+The evaluation, judge-calibration, and OpsRef Lakehouse notebooks expose `DATA_SOURCE_REF`. It defaults to `main`; use an immutable release tag or commit for reproducible workshop runs.
 
 ## Prerequisites
   •	A paid F2 or higher Fabric capacity, or a Power BI Premium per capacity (P1 or higher) capacity with Microsoft Fabric enabled.
