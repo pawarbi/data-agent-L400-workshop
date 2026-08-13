@@ -10,7 +10,7 @@ Download [`NB_Deploy_Workshop_Assets.ipynb`](NB_Deploy_Workshop_Assets.ipynb) an
 
 By default, the notebook deploys the workshop notebooks and semantic models to the workspace where it is executed. You can optionally provide another workspace ID. The notebook creates or reuses a root workspace folder named `data_agent_lab` and places all deployed assets in that folder.
 
-The deployment notebook creates or reuses a shareable Anonymous Web connection for the public GitHub datasource, skips the invalid directory-level connection test, and binds the connection before optionally refreshing both semantic models. No GitHub credential or token is required.
+When semantic-model refresh is enabled, the deployment notebook creates or reuses a shareable Anonymous Web connection for the public GitHub datasource, binds it, and refreshes both models. Connection setup and refresh are disabled by default. No GitHub credential or token is required.
 
 ## Prerequisites
   •	A paid F2 or higher Fabric capacity, or a Power BI Premium per capacity (P1 or higher) capacity with Microsoft Fabric enabled.
@@ -49,6 +49,5 @@ The deployment notebook creates or reuses a shareable Anonymous Web connection f
 - [`NB_Deploy_Workshop_Assets.ipynb`](NB_Deploy_Workshop_Assets.ipynb) - Root deployment notebook for the complete workshop environment.
 - `NB_DataAgent_SDK_Setup_L400.ipynb`
 - `NB_DataAgentEval_L400.ipynb`
-- `NB_DataAgentEval_L400_AssistantAPI_TemporaryFix.ipynb`
 - `NB_JudgeCalibration_L400.ipynb`
 - `NB_OpsRefLakehouse_Build_and_Views_L400.ipynb`
